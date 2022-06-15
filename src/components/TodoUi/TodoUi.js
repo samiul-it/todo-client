@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Task from '../Task/Task';
-import useTasks from './../../hooks/useTasks';
 import { useQuery } from "react-query";
 
 const TodoUi = () => {
@@ -9,7 +8,6 @@ const TodoUi = () => {
 
     const nameRef=useRef();
     const descriptionRef=useRef();
-
 
      const {
        data: tasks,
