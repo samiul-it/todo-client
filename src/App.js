@@ -1,23 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import GoogleLogin from './components/Auth/GoogleLogin';
+import TodoUi from './components/TodoUi/TodoUi';
+import "react-toastify/dist/ReactToastify.css";
+ import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h5>TO Do App</h5>
+      <TodoUi />
+      <GoogleLogin></GoogleLogin>
+
+      <ToastContainer />
     </div>
   );
 }
