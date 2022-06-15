@@ -9,11 +9,13 @@ const useTasks = () => {
         const url = "http://localhost:5000/tasks";
         fetch(url)
         .then(res=>res.json())
-        .then(data=>setTasks(data));
+        .then(data=>{
+            setTaskLoading(false)
+            setTasks(data)});
 
     },[])
 
-    return [tasks];
+    return [tasks,taskLoading,setTasks];
 
 
     
