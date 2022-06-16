@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import auth from './../../firebase/firebase.init';
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { useNavigate } from 'react-router-dom';
 
 const GoogleLogin = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
+    const navigate=useNavigate();
 
     const loginWithGoogle = async () => {
       await signInWithGoogle();
@@ -11,6 +14,7 @@ const GoogleLogin = () => {
     useEffect(() => {
       if (user) {
         console.log("Sign in Successful");
+        navigate("/home");
       }
     }, [user]);
 

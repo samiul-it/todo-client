@@ -1,8 +1,10 @@
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
-
+import { FaCheckCircle, FaClipboardCheck, FaEdit } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { RiDeleteBin2Line } from "react-icons/ri";
+
 
 
 const Task = ({ task, refetch }) => {
@@ -68,7 +70,7 @@ const Task = ({ task, refetch }) => {
   const handleTaskComplete=(id)=>{
     
     const taskStatusUpdate=true;
-    const url = `http://localhost:5000/completetask/${id}`;
+    const url = `https://fierce-shelf-11391.herokuapp.com/completetask/${id}`;
 
     fetch(url, {
       method: "PUT",
@@ -93,13 +95,25 @@ const Task = ({ task, refetch }) => {
         <p>{task.description}</p>
 
         <button
+          className="btn btn-success"
           disabled={task.isCompleted}
           onClick={() => handleTaskComplete(task._id)}
         >
-          {task.isCompleted ? "Completed" : "Complete Now"}
+          {task.isCompleted ? <FaClipboardCheck /> : <FaCheckCircle />}
         </button>
-        <button onClick={handleShow}>Edit</button>
-        <button onClick={() => handleDeleteItem(task._id)}>X</button>
+        <button
+          disabled={task.isCompleted}
+          className="btn btn-warning"
+          onClick={handleShow}
+        >
+          <FaEdit />
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={() => handleDeleteItem(task._id)}
+        >
+          <RiDeleteBin2Line />
+        </button>
       </div>
 
       {/* Edit Modal */}
