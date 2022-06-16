@@ -6,7 +6,7 @@ const useTasks = () => {
     const [taskLoading,setTaskLoading]=useState(true);
 
     useEffect(()=>{
-        const url = "http://localhost:5000/tasks";
+        const url = "https://fierce-shelf-11391.herokuapp.com/tasks";
         fetch(url)
         .then(res=>res.json())
         .then(data=>{

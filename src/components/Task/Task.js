@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 
 
 const Task = ({ task, refetch }) => {
-  console.log(task);
+
 
   const [show, setShow] = useState(false);
 
@@ -20,7 +20,7 @@ const Task = ({ task, refetch }) => {
   const handleDeleteItem = (id) => {
     const confirmDelete = window.confirm("Are you Sure?");
     if (confirmDelete) {
-      const url = `http://localhost:5000/deletetask/${id}`;
+      const url = `https://fierce-shelf-11391.herokuapp.com/deletetask/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -44,7 +44,7 @@ const Task = ({ task, refetch }) => {
     const descriptionUpdate=descriptionUpdateRef.current.value;
    
 
-    const url = `http://localhost:5000/task/${id}`;
+    const url = `https://fierce-shelf-11391.herokuapp.com/task/${id}`;
 
     fetch(url, {
       method: "PUT",
@@ -63,11 +63,41 @@ const Task = ({ task, refetch }) => {
     
   }
 
+  // Handle Task Complete
+
+  const handleTaskComplete=(id)=>{
+    
+    const taskStatusUpdate=true;
+    const url = `http://localhost:5000/completetask/${id}`;
+
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ taskStatusUpdate }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        handleClose();
+        refetch();
+      })
+      .then(toast.success("Success!Task Updated"));
+  }
+
   return (
     <div>
       <div className="alert alert-primary" role="alert">
         <h5>{task.name}</h5>
         <p>{task.description}</p>
+
+        <button
+          disabled={task.isCompleted}
+          onClick={() => handleTaskComplete(task._id)}
+        >
+          {task.isCompleted ? "Completed" : "Complete Now"}
+        </button>
         <button onClick={handleShow}>Edit</button>
         <button onClick={() => handleDeleteItem(task._id)}>X</button>
       </div>
@@ -99,7 +129,12 @@ const Task = ({ task, refetch }) => {
             <Button variant="secondary" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="primary" onClick={(e)=>handleDescriptionUpdate(e,task._id)}>Update</Button>
+            <Button
+              variant="primary"
+              onClick={(e) => handleDescriptionUpdate(e, task._id)}
+            >
+              Update
+            </Button>
           </Modal.Footer>
         </form>
       </Modal>

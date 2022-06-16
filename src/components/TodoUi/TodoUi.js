@@ -14,10 +14,9 @@ const TodoUi = () => {
        isLoading,
        refetch,
      } = useQuery("tasks", () =>
-       fetch(`http://localhost:5000/tasks`).then((res) => res.json())
+       fetch(`https://fierce-shelf-11391.herokuapp.com/tasks`).then((res) => res.json())
      );
 
-    console.log(tasks);
 
     if(isLoading){
       return <p> Loading....</p>
@@ -32,11 +31,12 @@ const TodoUi = () => {
         e.preventDefault();
         const name=nameRef.current.value;
         const description=descriptionRef.current.value;
+        const isCompleted=false;
 
-        console.log(name,description);
-        const data={name,description};
+        console.log(name,description,isCompleted);
+        const data={name,description,isCompleted};
 
-        const url = "http://localhost:5000/task";
+        const url = "https://fierce-shelf-11391.herokuapp.com/task";
         fetch(url, {
           method: "POST",
           headers: {
