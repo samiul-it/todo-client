@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase/firebase.init";
 import { signOut } from "firebase/auth";
+import { Button } from "@mui/material";
 
 const TodoUi = () => {
   const nameRef = useRef();
@@ -58,14 +59,17 @@ const TodoUi = () => {
         refetch();
       })
       .then(toast.success("Success!Item Added"));
+
+     nameRef.current.value = "";
+      descriptionRef.current.value = "";
   };
 
   return (
     <div>
       {user && (
-        <button onClick={handleSignOut} className="btn btn-secondary">
+        <Button onClick={handleSignOut} variant="contained" color="success">
           LogOut
-        </button>
+        </Button>
       )}
       <h1>Total Tasks: {tasks?.length}</h1>
       {tasks.map((task) => (

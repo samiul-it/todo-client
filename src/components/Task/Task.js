@@ -1,21 +1,21 @@
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { FaCheckCircle, FaClipboardCheck, FaEdit } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { RiDeleteBin2Line } from "react-icons/ri";
-
-
+import { Input } from "@mui/icons-material";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Fab, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 
 const Task = ({ task, refetch }) => {
-
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const descriptionUpdateRef=useRef();
+  const descriptionUpdateRef = useRef();
 
   // Deleting a Task
 
@@ -37,14 +37,10 @@ const Task = ({ task, refetch }) => {
 
   // Updating Task Description
 
-  const handleDescriptionUpdate=(e,id)=>{
-
+  const handleDescriptionUpdate = (e, id) => {
     e.preventDefault();
 
-
-
-    const descriptionUpdate=descriptionUpdateRef.current.value;
-   
+    const descriptionUpdate = descriptionUpdateRef.current.value;
 
     const url = `https://fierce-shelf-11391.herokuapp.com/task/${id}`;
 
@@ -53,7 +49,7 @@ const Task = ({ task, refetch }) => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({descriptionUpdate}),
+      body: JSON.stringify({ descriptionUpdate }),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -62,14 +58,12 @@ const Task = ({ task, refetch }) => {
         refetch();
       })
       .then(toast.success("Success!Task Updated"));
-    
-  }
+  };
 
   // Handle Task Complete
 
-  const handleTaskComplete=(id)=>{
-    
-    const taskStatusUpdate=true;
+  const handleTaskComplete = (id) => {
+    const taskStatusUpdate = true;
     const url = `https://fierce-shelf-11391.herokuapp.com/completetask/${id}`;
 
     fetch(url, {
@@ -86,7 +80,7 @@ const Task = ({ task, refetch }) => {
         refetch();
       })
       .then(toast.success("Success!Task Updated"));
-  }
+  };
 
   return (
     <div>
@@ -94,26 +88,34 @@ const Task = ({ task, refetch }) => {
         <h5>{task.name}</h5>
         <p>{task.description}</p>
 
-        <button
-          className="btn btn-success"
+        <Fab
+          color="secondary"
+          sx={{ m: 1 }}
+          aria-label="edit"
           disabled={task.isCompleted}
           onClick={() => handleTaskComplete(task._id)}
         >
-          {task.isCompleted ? <FaClipboardCheck /> : <FaCheckCircle />}
-        </button>
-        <button
+          {task.isCompleted ? <FactCheckIcon /> : <CheckCircleIcon />}
+        </Fab>
+
+        <Fab
+          color="secondary"
+          sx={{ m: 1 }}
+          aria-label="upload picture"
           disabled={task.isCompleted}
-          className="btn btn-warning"
           onClick={handleShow}
         >
-          <FaEdit />
-        </button>
-        <button
-          className="btn btn-danger"
+          <EditIcon />
+        </Fab>
+
+        <Fab
+          color="secondary"
+          sx={{ m: 1 }}
+          aria-label="upload picture"
           onClick={() => handleDeleteItem(task._id)}
         >
-          <RiDeleteBin2Line />
-        </button>
+          <DeleteForeverIcon />
+        </Fab>
       </div>
 
       {/* Edit Modal */}
