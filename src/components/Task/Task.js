@@ -22,7 +22,7 @@ const Task = ({ task, refetch }) => {
   const handleDeleteItem = (id) => {
     const confirmDelete = window.confirm("Are you Sure?");
     if (confirmDelete) {
-      const url = `https://fierce-shelf-11391.herokuapp.com/deletetask/${id}`;
+      const url = `https://todo-server-l0mq.onrender.com/deletetask/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -42,7 +42,7 @@ const Task = ({ task, refetch }) => {
 
     const descriptionUpdate = descriptionUpdateRef.current.value;
 
-    const url = `https://fierce-shelf-11391.herokuapp.com/task/${id}`;
+    const url = `https://todo-server-l0mq.onrender.com/task/${id}`;
 
     fetch(url, {
       method: "PUT",
@@ -64,7 +64,7 @@ const Task = ({ task, refetch }) => {
 
   const handleTaskComplete = (id) => {
     const taskStatusUpdate = true;
-    const url = `https://fierce-shelf-11391.herokuapp.com/completetask/${id}`;
+    const url = `https://todo-server-l0mq.onrender.com/completetask/${id}`;
 
     fetch(url, {
       method: "PUT",

@@ -18,7 +18,7 @@ const TodoUi = () => {
     isLoading,
     refetch,
   } = useQuery("tasks", () =>
-    fetch(`https://fierce-shelf-11391.herokuapp.com/tasks`).then((res) =>
+    fetch(`https://todo-server-l0mq.onrender.com/tasks`).then((res) =>
       res.json()
     )
   );
@@ -45,7 +45,7 @@ const TodoUi = () => {
     console.log(name, description, isCompleted);
     const data = { name, description, isCompleted };
 
-    const url = "https://fierce-shelf-11391.herokuapp.com/task";
+    const url = "https://todo-server-l0mq.onrender.com/task";
     fetch(url, {
       method: "POST",
       headers: {
